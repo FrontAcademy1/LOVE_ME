@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI DEVELOPER — عالم الدراسة</title>
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
+  <link
+    rel="icon"
+    href="assets/images/favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Cinzel:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="ai-chat.css">
+</head>
+
+<body>
+
+  <div class="ai-grain"></div>
+  <div id="aiBubbles" class="ai-bubbles"></div>
+
+  <main class="ai-shell">
+
+    <!-- HEADER -->
+    <header class="ai-header">
+
+      <a
+        href="admin.html"
+        class="back-button"
+      >
+        ← لوحة الأدمن
+      </a>
+
+      <div class="ai-brand">
+
+        <div class="ai-logo">
+          AI
+        </div>
+
+        <div>
+          <strong>AI DEVELOPER</strong>
+          <small>عالم الدراسة</small>
+        </div>
+
+      </div>
+
+      <div class="header-actions">
+
+        <span
+          id="connectionStatus"
+          class="connection-status"
+        >
+          جاري الاتصال...
+        </span>
+
+        <button
+          id="newChatBtn"
+          class="header-button"
+          type="button"
+        >
+          محادثة جديدة
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="ai-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="ai-sidebar">
+
+        <div class="sidebar-block">
+
+          <p class="label">
+            وضع المساعد
+          </p>
+
+          <div class="mode-card active">
+
+            <span class="mode-icon">
+              &lt;/&gt;
+            </span>
+
+            <div>
+              <strong>Developer AI</strong>
+              <small>
+                مساعد برمجة خاص بالمطور
+              </small>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="sidebar-block">
+
+          <p class="label">
+            لغة البرمجة
+          </p>
+
+          <select id="languageSelect">
+
+            <option value="general">
+              عام
+            </option>
+
+            <option value="javascript">
+              JavaScript
+            </option>
+
+            <option value="html">
+              HTML
+            </option>
+
+            <option value="css">
+              CSS
+            </option>
+
+            <option value="python">
+              Python
+            </option>
+
+            <option value="sql">
+              SQL
+            </option>
+
+            <option value="typescript">
+              TypeScript
+            </option>
+
+            <option value="php">
+              PHP
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="sidebar-block">
+
+          <p class="label">
+            أدوات سريعة
+          </p>
+
+          <button
+            class="quick-action"
+            data-prompt="راجع الكود التالي واكتشف الأخطاء فيه واشرح لي سبب كل خطأ ثم أعطني النسخة المصححة."
+          >
+            مراجعة كود
+          </button>
+
+          <button
+            class="quick-action"
+            data-prompt="اشرح لي الكود التالي بالتفصيل وبطريقة مناسبة لمطور مبتدئ."
+          >
+            شرح كود
+          </button>
+
+          <button
+            class="quick-action"
+            data-prompt="اكتب لي حلاً نظيفاً ومنظماً لهذه المشكلة مع شرح طريقة عمل الحل."
+          >
+            كتابة حل
+          </button>
+
+          <button
+            class="quick-action"
+            data-prompt="ساعدني في اكتشاف سبب الخطأ في هذا المشروع واقترح طريقة إصلاحه."
+          >
+            Debug
+          </button>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+          <span>
+            PRIVATE DEVELOPER ROOM
+          </span>
+
+          <small>
+            عالم الدراسة
+          </small>
+
+        </div>
+
+      </aside>
+
+
+      <!-- CHAT -->
+      <section class="chat-panel">
+
+        <div
+          id="chatMessages"
+          class="chat-messages"
+        >
+
+          <!-- Welcome -->
+          <article class="message assistant-message">
+
+            <div class="message-avatar">
+              AI
+            </div>
+
+            <div class="message-content">
+
+              <div class="message-meta">
+                AI DEVELOPER
+              </div>
+
+              <div class="message-text">
+
+                <h3>
+                  أهلاً يا مطور.
+                </h3>
+
+                <p>
+                  أنا مساعد البرمجة الخاص بك داخل
+                  عالم الدراسة.
+                </p>
+
+                <p>
+                  ابعتلي كود، خطأ، فكرة مشروع، API،
+                  SQL أو أي مشكلة برمجية وأنا أساعدك فيها.
+                </p>
+
+                <p class="hint">
+                  مثال: لماذا هذا الكود لا يعمل؟
+                </p>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- TYPING -->
+        <div
+          id="typingIndicator"
+          class="typing-indicator hidden"
+        >
+
+          <span></span>
+          <span></span>
+          <span></span>
+
+          <small>
+            AI بيكتب...
+          </small>
+
+        </div>
+
+
+        <!-- INPUT -->
+        <div class="composer">
+
+          <div class="composer-tools">
+
+            <span>
+              Developer Mode
+            </span>
+
+            <span id="selectedLanguage">
+              General
+            </span>
+
+          </div>
+
+
+          <textarea
+            id="messageInput"
+            rows="4"
+            placeholder="اكتب مشكلتك البرمجية هنا..."
+            autocomplete="off"
+          ></textarea>
+
+
+          <div class="composer-bottom">
+
+            <span class="composer-hint">
+              Enter للإرسال · Shift + Enter لسطر جديد
+            </span>
+
+            <button
+              id="sendBtn"
+              class="send-button"
+              type="button"
+            >
+              إرسال
+            </button>
+
+            <button
+              id="stopBtn"
+              class="stop-button hidden"
+              type="button"
+            >
+              إيقاف
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="i18n.js"></script>
+
+  <script src="ai-chat.js"></script>
+
+</body>
+
+</html>
