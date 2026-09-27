@@ -50,13 +50,13 @@ async function loadPublicData(){
   setQuestionsState(QA_I18N.t("LOADING"));
   // كل قسم يتحمل فشله منفردًا حتى لا يبقى الموقع عالقًا في "جاري التحميل".
   const [q,ch,cat,settings]=await Promise.allSettled([
-    db.from("questions").select("id,title,question_text,answer,explanation,chapter_id,category_id,image_url,video_url,code,display_order,created_at").eq("published",true).order("display_order",{ascending:true}).order("created_at",{ascending:true}),
+    db.from("questions").select("*") ,
     db.from("chapters").select("id,title,description,display_order,created_at").order("display_order",{ascending:true}),
     db.from("categories").select("id,name,slug,description,created_at").order("name",{ascending:true}),
     db.from("site_settings").select("key,value")
   ]);
   const unwrap=(r, fallback)=>r.status==="fulfilled" && !r.value.error ? (r.value.data||fallback) : fallback;
-  state.questions=unwrap(q,[]);
+  state.questions=unwrap(q,[]).filter(x=>x.published !== false).sort((a,b)=>{const ao=Number(a.display_order)||999999,bo=Number(b.display_order)||999999; if(ao!==bo)return ao-bo; return new Date(a.created_at||0)-new Date(b.created_at||0);});
   state.chapters=unwrap(ch,[]);
   state.categories=unwrap(cat,[]);
   state.settings=Object.fromEntries(unwrap(settings,[]).map(x=>[x.key,x.value]));
